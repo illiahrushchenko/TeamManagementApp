@@ -1,1 +1,1 @@
-# TeamManagmentApp
+# TeamManagementApp
