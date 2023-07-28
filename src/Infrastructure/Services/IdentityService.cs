@@ -14,20 +14,24 @@ public class IdentityService : IIdentityService
         _userManager = userManager;
     }
     
-    public async Task CreateUserAsync(string email, string password)
+    public async Task<int> CreateUserAsync(string email, string password)
     {
-        //Make username equal to email
-        var result = await _userManager.CreateAsync(new User
+        var user = new User
         {
             UserName = email,
             Email = email
-        }, password);
+        };
+        
+        //Make username equal to email
+        var result = await _userManager.CreateAsync(user, password);
         
         if (!result.Succeeded)
         {
             var errors = result.Errors.Select(x => x.Description).ToArray();
             throw new UnauthorizedException(errors);
         }
+        
+        return user.Id;
     }
 
     public Task<string> GetToken(string email, string password)
