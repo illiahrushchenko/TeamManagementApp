@@ -30,6 +30,8 @@ public static class ConfigureServices
 
         services.AddScoped<IApplicationDbContext>(provider => 
             provider.GetRequiredService<ApplicationDbContext>());
+
+        services.AddScoped<IIdentityService, IdentityService>();
         
         return services;
     }
