@@ -26,6 +26,16 @@ public class Testing
         return await mediator.Send(request);
     }
     
+    public static async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues)
+        where TEntity : class
+    {
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+        return await context.FindAsync<TEntity>(keyValues);
+    }
+    
     public static async Task ResetAsync()
     {
         using var scope = _scopeFactory.CreateScope();
