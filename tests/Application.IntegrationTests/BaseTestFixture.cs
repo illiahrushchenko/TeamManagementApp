@@ -7,6 +7,6 @@ public class BaseTestFixture
 {
     public async Task TestSetUp()
     {
-        
+        await Testing.ResetAsync();
     }
 }
