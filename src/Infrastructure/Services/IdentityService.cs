@@ -1,3 +1,4 @@
+using Application.Common.Exceptions;
 using Application.Common.Interfaces;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -21,6 +22,12 @@ public class IdentityService : IIdentityService
             UserName = email,
             Email = email
         }, password);
+        
+        if (!result.Succeeded)
+        {
+            var errors = result.Errors.Select(x => x.Description).ToArray();
+            throw new UnauthorizedException(errors);
+        }
     }
 
     public Task<string> GetToken(string email, string password)
