@@ -1,17 +1,24 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Application.Common.Exceptions;
 using Application.Common.Interfaces;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Services;
 
 public class IdentityService : IIdentityService
 {
     private readonly UserManager<User> _userManager;
+    private readonly IConfiguration _configuration;
 
-    public IdentityService(UserManager<User> userManager)
+    public IdentityService(UserManager<User> userManager, IConfiguration configuration)
     {
         _userManager = userManager;
+        _configuration = configuration;
     }
     
     public async Task<int> CreateUserAsync(string email, string password)
@@ -34,8 +41,42 @@ public class IdentityService : IIdentityService
         return user.Id;
     }
 
-    public Task<string> GetToken(string email, string password)
+    public async Task<string> GetAuthTokenAsync(string email, string password)
     {
-        throw new NotImplementedException();
+        var user = await _userManager.FindByEmailAsync(email);
+
+        if(user is null)
+        {
+            throw new UnauthorizedException("User not found");
+        }
+        if(!await _userManager.CheckPasswordAsync(user, password))
+        {
+            throw new UnauthorizedException($"Invalid password");
+        }
+
+        return GenerateJwt(email, user.Id);
+    }
+
+    private string GenerateJwt(string email, int userId)
+    {
+        var claims = new List<Claim>
+        {
+            new Claim("email", email),
+            new Claim("userId", userId.ToString())
+        };
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Secret"]!));
+
+        var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var token = new JwtSecurityToken(
+            _configuration["Jwt:Iss"],
+            _configuration["Jwt:Aud"],
+            claims,
+            notBefore: DateTime.Now,
+            expires: DateTime.Now.AddDays(14),
+            signingCredentials);
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }
