@@ -25,4 +25,8 @@
       <ProjectReference Include="..\..\src\WebApi\WebApi.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Boards\" />
+    </ItemGroup>
+
 </Project>

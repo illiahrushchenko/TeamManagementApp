@@ -1,7 +1,9 @@
 using System.Text;
+using Application.Common.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using WebApi.Services;
 
 namespace WebApi;
 
@@ -11,6 +13,10 @@ public static class ConfigureServices
         IConfiguration configuration)
     {
         services.AddControllers();
+
+        services.AddHttpContextAccessor();
+
+        services.AddSingleton<ICurrentUserService, CurrentUserService>();
         
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,options =>
