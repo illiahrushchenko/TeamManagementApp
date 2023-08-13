@@ -1,4 +1,5 @@
 using Application.Boards.Commands.CreateBoard;
+using Application.Boards.Queries.GetBoards;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,14 @@ public class BoardController : ControllerBase
     [HttpPost()]
     public async Task<IActionResult> Create(CreateBoardCommand command)
     {
+        return Ok(await _sender.Send(command));
+    }
+    
+    [HttpGet()]
+    public async Task<IActionResult> GetAvailable()
+    {
+
+        var command = new GetAvailableBoardsQuery();
         return Ok(await _sender.Send(command));
     }
 }
