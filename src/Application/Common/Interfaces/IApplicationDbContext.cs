@@ -9,5 +9,7 @@ public interface IApplicationDbContext
     DbSet<Table> Tables { get; }
     DbSet<TableCard> TableCards { get; }
     
+    DbSet<User> Users { get; }
+
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
