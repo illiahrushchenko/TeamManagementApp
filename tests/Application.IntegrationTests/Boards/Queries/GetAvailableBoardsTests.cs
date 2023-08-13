@@ -1,3 +1,4 @@
+using Application.Boards.Commands.AddMember;
 using Application.Boards.Commands.CreateBoard;
 using Application.Boards.Queries.GetBoards;
 using FluentAssertions;
@@ -25,15 +26,20 @@ public class GetAvailableBoardsTests : BaseTestFixture
     public async Task ShouldReturnOtherBoards()
     {
         //Init member
-        var memberUserId = await Testing.RunAsUserAsync("member@gmail.com", "1234");
+        var memberEmail = "member@gmail.com";
+        var memberUserId = await Testing.RunAsUserAsync(memberEmail, "1234");
         
         //Run as board owner
         await Testing.RunAsUserAsync("owner@gmail.com", "1234");
-        await Testing.SendAsync(new CreateBoardCommand("Board"));
-        //TODO: Add member by id
+        var boardId = await Testing.SendAsync(new CreateBoardCommand("Board"));
+        await Testing.SendAsync(new AddMemberCommand(boardId, memberEmail));
 
         //Run as board member
         Testing.UserId = memberUserId;
-        await Testing.SendAsync(new GetAvailableBoardsQuery());
+        var boards = await Testing.SendAsync(new GetAvailableBoardsQuery());
+        
+        boards.Should().NotBeNull();
+        boards.OtherBoards.Should().NotBeNullOrEmpty();
+        boards.OtherBoards.Should().HaveCount(1);
     }
 }
