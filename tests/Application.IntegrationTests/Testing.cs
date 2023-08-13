@@ -1,5 +1,7 @@
+using Domain.Entities;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.IntegrationTests;
@@ -10,12 +12,42 @@ public class Testing
     private static CustomWebApplicationFactory _factory = null!;
     private static IServiceScopeFactory _scopeFactory = null!;
     
+    public static int? UserId { get; set; }
+    
     [OneTimeSetUp]
     public void RunBeforeAnyTests()
     {
         _factory = new CustomWebApplicationFactory();
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
     }
+    
+    public static int? GetUserId()
+    {
+        return UserId;
+    }
+    
+    public static async Task<int?> RunAsUserAsync(string email, string password)
+    {
+        using var scope = _scopeFactory.CreateScope();
+
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+
+        var user = new User { UserName = email, Email = email };
+
+        var result = await userManager.CreateAsync(user, password);
+
+        if (result.Succeeded)
+        {
+            UserId = user.Id;
+
+            return UserId;
+        }
+
+        var errors = string.Join(Environment.NewLine, result.Errors);
+
+        throw new Exception($"Unable to create {email}.{Environment.NewLine}{errors}");
+    }
+    
     
     public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
     {
