@@ -1,3 +1,4 @@
+using Application.Boards.Commands.AddMember;
 using Application.Boards.Commands.CreateBoard;
 using Application.Boards.Queries.GetBoards;
 using MediatR;
@@ -20,6 +21,12 @@ public class BoardController : ControllerBase
     
     [HttpPost()]
     public async Task<IActionResult> Create(CreateBoardCommand command)
+    {
+        return Ok(await _sender.Send(command));
+    }
+    
+    [HttpPost()]
+    public async Task<IActionResult> AddMember(AddMemberCommand command)
     {
         return Ok(await _sender.Send(command));
     }
