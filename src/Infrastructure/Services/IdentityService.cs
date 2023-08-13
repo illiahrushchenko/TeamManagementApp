@@ -41,6 +41,11 @@ public class IdentityService : IIdentityService
         return user.Id;
     }
 
+    public async Task<User> FindUserByEmailAsync(string email)
+    {
+        return await _userManager.FindByEmailAsync(email);
+    }
+
     public async Task<string> GetAuthTokenAsync(string email, string password)
     {
         var user = await _userManager.FindByEmailAsync(email);
