@@ -28,11 +28,4 @@ public class AuthenticationController : ControllerBase
     {
         return Ok(await _sender.Send(command));
     }
-
-    [Authorize]
-    [HttpGet()]
-    public IActionResult Protected()
-    {
-        return Ok("Protected");
-    }
 }
