@@ -1,5 +1,6 @@
 using Application.Boards.Commands.AddMember;
 using Application.Boards.Commands.CreateBoard;
+using Application.Boards.Commands.UpdateBoard;
 using Application.Boards.Queries.GetBoards;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -36,6 +37,12 @@ public class BoardController : ControllerBase
     {
 
         var command = new GetAvailableBoardsQuery();
+        return Ok(await _sender.Send(command));
+    }
+
+    [HttpPut()]
+    public async Task<IActionResult> Update(UpdateBoardCommand command)
+    {
         return Ok(await _sender.Send(command));
     }
 }
