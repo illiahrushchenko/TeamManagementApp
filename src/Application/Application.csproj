@@ -20,14 +20,4 @@
       <PackageReference Include="MediatR" Version="12.1.1" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Boards\Commands\DeleteBoard\" />
-      <Folder Include="TableCards\Commands\CreateTableCard\" />
-      <Folder Include="TableCards\Commands\DeleteTableCard\" />
-      <Folder Include="TableCards\Commands\UpdateTableCard\" />
-      <Folder Include="TableCards\Queries\GetTableCard\" />
-      <Folder Include="Tables\Commands\UpdateTable\" />
-      <Folder Include="Tables\Queries\GetTable\" />
-    </ItemGroup>
-
 </Project>
