@@ -5,6 +5,7 @@ using Application.Common.Exceptions;
 using Application.Common.Interfaces;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -44,6 +45,11 @@ public class IdentityService : IIdentityService
     public async Task<User> FindUserByEmailAsync(string email)
     {
         return await _userManager.FindByEmailAsync(email);
+    }
+
+    public async Task<User> FindUserByIdAsync(int id)
+    {
+        return await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<string> GetAuthTokenAsync(string email, string password)

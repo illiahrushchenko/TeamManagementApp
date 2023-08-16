@@ -7,6 +7,7 @@ public interface IIdentityService
 {
     Task<int> CreateUserAsync(string email, string password);
     Task<User> FindUserByEmailAsync(string email);
+    Task<User> FindUserByIdAsync(int id);
     Task<string> GetAuthTokenAsync(string email, string password);
     
 }
