@@ -12,11 +12,13 @@ public class AddMemberCommandHandler : IRequestHandler<AddMemberCommand, int>
 {
     private readonly IIdentityService _identityService;
     private readonly IApplicationDbContext _context;
+    private readonly ICurrentUserService _currentUserService;
 
-    public AddMemberCommandHandler(IIdentityService identityService, IApplicationDbContext context)
+    public AddMemberCommandHandler(IIdentityService identityService, IApplicationDbContext context, ICurrentUserService currentUserService)
     {
         _identityService = identityService;
         _context = context;
+        _currentUserService = currentUserService;
     }
     
     public async Task<int> Handle(AddMemberCommand request, CancellationToken cancellationToken)
@@ -24,6 +26,11 @@ public class AddMemberCommandHandler : IRequestHandler<AddMemberCommand, int>
         var board = await _context.Boards
                         .FirstOrDefaultAsync(x => x.Id == request.BoardId, cancellationToken: cancellationToken) ??
                     throw new NotFoundException(nameof(Board), request.BoardId);
+        
+        if (board.OwnerId != _currentUserService.UserId)
+        {
+            throw new ForbiddenAccessException(nameof(Board), request.BoardId);
+        }
 
         var user = await _identityService.FindUserByEmailAsync(request.Email) ??
                    throw new NotFoundException(nameof(User), request.Email);
