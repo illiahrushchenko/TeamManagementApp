@@ -1,5 +1,6 @@
 using Application.Boards.Commands.CreateBoard;
 using Application.Boards.Commands.UpdateBoard;
+using Application.Common.Exceptions;
 using Domain.Entities;
 using FluentAssertions;
 
@@ -7,6 +8,14 @@ namespace Application.IntegrationTests.Boards.Commands;
 
 public class UpdateBoardCommandTests : BaseTestFixture
 {
+    [Test]
+    public async Task ShouldRequireValidBoardId()
+    {
+        var command = new UpdateBoardCommand(99, "New Title");
+        await FluentActions.Invoking(() => 
+            Testing.SendAsync(command)).Should().ThrowAsync<NotFoundException>();
+    }
+    
     [Test]
     public async Task ShouldUpdateBoard()
     {
