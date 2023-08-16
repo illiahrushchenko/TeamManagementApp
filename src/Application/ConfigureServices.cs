@@ -1,4 +1,6 @@
 using System.Reflection;
+using Application.Common.Interfaces;
+using Application.Common.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;
@@ -12,6 +14,8 @@ public static class ConfigureServices
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             // Add behaviors
         });
+
+        services.AddScoped<IBoardMembersService, BoardMembersService>();
         
         return services;
     }
