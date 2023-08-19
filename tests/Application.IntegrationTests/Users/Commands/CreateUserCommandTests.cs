@@ -4,7 +4,7 @@ using FluentAssertions;
 
 namespace Application.IntegrationTests.Users.Commands.CreateUser;
 
-public class CreateUserTests : BaseTestFixture
+public class CreateUserCommandTests : BaseTestFixture
 {
     [Test]
     public async Task ShouldCreateUser()

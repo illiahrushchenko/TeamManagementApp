@@ -4,9 +4,9 @@ using Application.Tables.Commands.CreateTable;
 using Domain.Entities;
 using FluentAssertions;
 
-namespace Application.IntegrationTests.Tables;
+namespace Application.IntegrationTests.Tables.Commands;
 
-public class CreateTableCommandTests : BaseTestFixture
+public class CreateTableCommmandTests : BaseTestFixture
 {
     [Test]
     public async Task ShouldCreateTable()
