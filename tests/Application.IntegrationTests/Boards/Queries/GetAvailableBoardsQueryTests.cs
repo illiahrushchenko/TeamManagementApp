@@ -5,7 +5,7 @@ using FluentAssertions;
 
 namespace Application.IntegrationTests.Boards.Queries;
 
-public class GetAvailableBoardsTests : BaseTestFixture
+public class GetAvailableBoardsQueryTests : BaseTestFixture
 {
     [Test]
     public async Task ShouldReturnOwnBoards()
