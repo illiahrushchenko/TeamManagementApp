@@ -49,7 +49,7 @@ public class IdentityService : IIdentityService
 
     public async Task<User> FindUserByIdAsync(int id)
     {
-        return await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
+        return await _userManager.FindByIdAsync(id.ToString());
     }
 
     public async Task<string> GetAuthTokenAsync(string email, string password)
