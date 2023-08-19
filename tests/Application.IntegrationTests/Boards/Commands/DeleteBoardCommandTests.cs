@@ -11,7 +11,7 @@ public class DeleteBoardCommandTests : BaseTestFixture
     [Test]
     public async Task ShouldRequireValidId()
     {
-        await Testing.RunAsUserAsync("qqq@gmail.com", "1234");
+        await Testing.RunAsDefaultUserAsync();
 
         var command = new DeleteBoardCommand(452);
 
@@ -22,7 +22,7 @@ public class DeleteBoardCommandTests : BaseTestFixture
     [Test]
     public async Task ShouldDeleteBoard()
     {
-        await Testing.RunAsUserAsync("qqq@gmail.com", "1234");
+        await Testing.RunAsDefaultUserAsync();
 
         var boardId = await Testing.SendAsync(new CreateBoardCommand("New Board"));
 

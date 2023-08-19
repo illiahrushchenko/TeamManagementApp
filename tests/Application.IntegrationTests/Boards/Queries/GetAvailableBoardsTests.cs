@@ -10,7 +10,7 @@ public class GetAvailableBoardsTests : BaseTestFixture
     [Test]
     public async Task ShouldReturnOwnBoards()
     {
-        await Testing.RunAsUserAsync("ddd@gmail.com", "1234");
+        await Testing.RunAsDefaultUserAsync();
 
         await Testing.SendAsync(new CreateBoardCommand("OwnBoard"));
         await Testing.SendAsync(new CreateBoardCommand("OwnBoard2"));

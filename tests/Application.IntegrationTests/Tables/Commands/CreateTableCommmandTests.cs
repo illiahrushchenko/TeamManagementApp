@@ -11,7 +11,7 @@ public class CreateTableCommmandTests : BaseTestFixture
     [Test]
     public async Task ShouldCreateTable()
     {
-        await Testing.RunAsUserAsync("qqq@gmail.com", "1234");
+        await Testing.RunAsDefaultUserAsync();
 
         var boardId = await Testing.SendAsync(new CreateBoardCommand("New Board"));
         var tableId = await Testing.SendAsync(new CreateTableCommand("New Table", boardId));
@@ -26,16 +26,14 @@ public class CreateTableCommmandTests : BaseTestFixture
     [Test]
     public async Task ShouldThrowForbiddenWhenUserIsNotBoardOwner()
     {
-        await Testing.RunAsUserAsync("qqq@gmail.com", "1234");
+        await Testing.RunAsUserAsync("boardOwner@gmail.com", "1234");
 
         var boardId = await Testing.SendAsync(new CreateBoardCommand("New Board"));
 
-        await Testing.RunAsUserAsync("aaa@gmail.com", "1234");
+        await Testing.RunAsUserAsync("otherUser@gmail.com", "1234");
         var command = new CreateTableCommand("New Table", boardId);
 
         await FluentActions.Invoking(() => 
             Testing.SendAsync(command)).Should().ThrowAsync<ForbiddenAccessException>();
-
-
     }
 }

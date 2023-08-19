@@ -12,7 +12,7 @@ public class DeleteTableCommandTests : BaseTestFixture
     [Test]
     public async Task ShouldRequireValidId()
     {
-        await Testing.RunAsUserAsync("qqq@gmail.com", "1234");
+        await Testing.RunAsDefaultUserAsync();
 
         var command = new DeleteTableCommand(452);
 
@@ -23,7 +23,7 @@ public class DeleteTableCommandTests : BaseTestFixture
     [Test]
     public async Task ShouldDeleteTable()
     {
-        await Testing.RunAsUserAsync("qqq@gmail.com", "1234");
+        await Testing.RunAsDefaultUserAsync();
 
         var boardId = await Testing.SendAsync(new CreateBoardCommand("New Board"));
 
