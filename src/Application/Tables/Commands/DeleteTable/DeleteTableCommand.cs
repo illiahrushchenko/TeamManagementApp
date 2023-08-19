@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Tables.Commands.DeleteTable;
 
-public record DeleteTableCommand(int TableId) : IRequest;
+public record DeleteTableCommand(int Id) : IRequest;
 
 public class DeleteTableCommandHandler : IRequestHandler<DeleteTableCommand>
 {
@@ -25,12 +25,12 @@ public class DeleteTableCommandHandler : IRequestHandler<DeleteTableCommand>
     public async Task Handle(DeleteTableCommand request, CancellationToken cancellationToken)
     {
         var table = await _context.Tables
-                        .FirstOrDefaultAsync(x => x.Id == request.TableId, cancellationToken: cancellationToken) ??
-                    throw new NotFoundException(nameof(Table), request.TableId);
+                        .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken) ??
+                    throw new NotFoundException(nameof(Table), request.Id);
 
         if (!await _boardMembersService.UserIsOwner(_currentUserService.UserId, table.BoardId))
         {
-            throw new ForbiddenAccessException(nameof(Table), request.TableId);
+            throw new ForbiddenAccessException(nameof(Table), request.Id);
         }
 
         _context.Tables.Remove(table);

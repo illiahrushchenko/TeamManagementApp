@@ -10,7 +10,7 @@ namespace Application.IntegrationTests.Tables.Commands;
 public class DeleteTableCommandTests : BaseTestFixture
 {
     [Test]
-    public async Task ShouldRequireValidTableId()
+    public async Task ShouldRequireValidId()
     {
         await Testing.RunAsUserAsync("qqq@gmail.com", "1234");
 
