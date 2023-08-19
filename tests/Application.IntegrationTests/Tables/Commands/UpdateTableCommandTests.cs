@@ -1,5 +1,6 @@
 using Application.Boards.Commands.CreateBoard;
 using Application.Boards.Commands.UpdateBoard;
+using Application.Common.Exceptions;
 using Application.Tables.Commands.CreateTable;
 using Application.Tables.Commands.UpdateTable;
 using Domain.Entities;
@@ -26,5 +27,15 @@ public class UpdateTableCommandTests : BaseTestFixture
         table.Should().NotBeNull();
         table!.BoardId.Should().Be(secondBoardId);
         table.Title.Should().Be("New Title");
+    }
+    
+    [Test]
+    public async Task ShouldRequireValidTableId()
+    {
+        await Testing.RunAsDefaultUserAsync();
+        
+        var command = new UpdateTableCommand(99, "New Title", 0);
+        await FluentActions.Invoking(() => 
+            Testing.SendAsync(command)).Should().ThrowAsync<NotFoundException>();
     }
 }
