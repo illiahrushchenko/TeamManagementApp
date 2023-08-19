@@ -21,14 +21,14 @@ public class UpdateBoardCommandTests : BaseTestFixture
     [Test]
     public async Task ShouldUpdateBoard()
     {
-        await Testing.RunAsUserAsync("ddd@gmail.com", "1234");
+        await Testing.RunAsDefaultUserAsync();
 
-        var boardId = await Testing.SendAsync(new CreateBoardCommand("old title"));
-        await Testing.SendAsync(new UpdateBoardCommand(boardId, "new title"));
+        var boardId = await Testing.SendAsync(new CreateBoardCommand("Old Title"));
+        await Testing.SendAsync(new UpdateBoardCommand(boardId, "New Title"));
 
         var board = await Testing.FindAsync<Board>(boardId);
 
         board.Should().NotBeNull();
-        board!.Title.Should().Be("new title");
+        board!.Title.Should().Be("New Title");
     }
 }
