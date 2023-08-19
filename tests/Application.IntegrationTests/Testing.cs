@@ -25,6 +25,11 @@ public class Testing
     {
         return UserId;
     }
+
+    public static async Task<int?> RunAsDefaultUserAsync()
+    {
+        return await RunAsUserAsync("default@gmail.com", "1234");
+    }
     
     public static async Task<int?> RunAsUserAsync(string email, string password)
     {
