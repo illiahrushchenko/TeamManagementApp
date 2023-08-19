@@ -1,8 +1,8 @@
 using Domain.Entities;
 
-namespace Application.Boards.Queries.GetBoards;
+namespace Application.Boards.Queries.GetAvailableBoards.Dto;
 
-public static class BoardMappingExtentions
+public static class BoardMappingExtensions
 {
     public static BoardDto Map(this Board board)
     {

@@ -1,7 +1,7 @@
 using Application.Boards.Commands.AddMember;
 using Application.Boards.Commands.CreateBoard;
 using Application.Boards.Commands.UpdateBoard;
-using Application.Boards.Queries.GetBoards;
+using Application.Boards.Queries.GetAvailableBoards;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

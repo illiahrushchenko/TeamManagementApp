@@ -1,6 +1,6 @@
 using Application.Boards.Commands.AddMember;
 using Application.Boards.Commands.CreateBoard;
-using Application.Boards.Queries.GetBoards;
+using Application.Boards.Queries.GetAvailableBoards;
 using FluentAssertions;
 
 namespace Application.IntegrationTests.Boards.Queries;

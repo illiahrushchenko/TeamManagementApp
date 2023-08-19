@@ -1,10 +1,11 @@
+using Application.Boards.Queries.GetAvailableBoards.Dto;
 using Application.Common.Exceptions;
 using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Boards.Queries.GetBoards;
+namespace Application.Boards.Queries.GetAvailableBoards;
 
 public record GetAvailableBoardsQuery : IRequest<BoardListDto>;
 
