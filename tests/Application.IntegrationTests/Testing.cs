@@ -58,6 +58,15 @@ public class Testing
         return await mediator.Send(request);
     }
     
+    public static async Task SendAsync(IBaseRequest request)
+    {
+        using var scope = _scopeFactory.CreateScope();
+
+        var mediator = scope.ServiceProvider.GetRequiredService<ISender>();
+
+        await mediator.Send(request);
+    }
+    
     public static async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues)
         where TEntity : class
     {
