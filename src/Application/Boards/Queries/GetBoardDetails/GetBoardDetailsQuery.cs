@@ -1,8 +1,9 @@
+using Application.Boards.Queries.GetBoardDetails.Dto;
 using MediatR;
 
 namespace Application.Boards.Queries.GetBoardDetails;
 
-public record GetBoardDetailsQuery : IRequest<BoardDetailsDto>;
+public record GetBoardDetailsQuery(int Id) : IRequest<BoardDetailsDto>;
 
 public record GetBoardDetailsQueryHandler : IRequestHandler<GetBoardDetailsQuery, BoardDetailsDto>
 {

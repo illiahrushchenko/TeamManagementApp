@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.TableCards.Commands.CreateTableCard;
 
-public record CreateTableCardCommand() : IRequest<int>;
+public record CreateTableCardCommand(string Title, string Description, int TableId) : IRequest<int>;
 
 public class CreateTableCardCommandHandler : IRequestHandler<CreateTableCommand, int>
 {
