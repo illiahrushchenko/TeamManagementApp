@@ -36,4 +36,15 @@ public class CreateTableCommmandTests : BaseTestFixture
         await FluentActions.Invoking(() => 
             Testing.SendAsync(command)).Should().ThrowAsync<ForbiddenAccessException>();
     }
+
+    [Test]
+    public async Task ShouldRequireValidBoardId()
+    {
+        await Testing.RunAsDefaultUserAsync();
+
+        var command = new CreateTableCommand("New Table", 99);
+
+        await FluentActions.Invoking(() => Testing.SendAsync(command))
+            .Should().ThrowAsync<NotFoundException>();
+    }
 }
