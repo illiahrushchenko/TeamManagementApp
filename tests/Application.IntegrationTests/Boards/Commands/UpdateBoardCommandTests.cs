@@ -11,6 +11,8 @@ public class UpdateBoardCommandTests : BaseTestFixture
     [Test]
     public async Task ShouldRequireValidBoardId()
     {
+        await Testing.RunAsDefaultUserAsync();
+        
         var command = new UpdateBoardCommand(99, "New Title");
         await FluentActions.Invoking(() => 
             Testing.SendAsync(command)).Should().ThrowAsync<NotFoundException>();
