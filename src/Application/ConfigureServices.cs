@@ -15,7 +15,7 @@ public static class ConfigureServices
             // Add behaviors
         });
 
-        services.AddScoped<IBoardMembersService, BoardMembersService>();
+        services.AddTransient<IBoardMembersService, BoardMembersService>();
         
         return services;
     }
