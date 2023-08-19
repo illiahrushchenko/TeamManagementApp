@@ -4,8 +4,8 @@ namespace Domain.Entities;
 
 public class TableCard : EntityBase
 {
-    public Board Board { get; set; } = null!;
-    public int BoardId { get; set; }
+    public Table Table { get; set; } = null!;
+    public int TableId { get; set; }
 
     public User AddedBy { get; set; } = null!;
     public int AddedById { get; set; }
