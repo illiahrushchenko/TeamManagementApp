@@ -34,7 +34,7 @@ public class UpdateTableCommandTests : BaseTestFixture
     {
         await Testing.RunAsDefaultUserAsync();
         
-        var command = new UpdateTableCommand(99, "New Title", 0);
+        var command = new UpdateTableCommand(99, "New Title", 99);
         await FluentActions.Invoking(() => 
             Testing.SendAsync(command)).Should().ThrowAsync<NotFoundException>();
     }
