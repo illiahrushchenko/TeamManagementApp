@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Tables.Commands.UpdateTable;
 
-public record UpdateTableCommand(int TableId, string Title, int BoardId) : IRequest<int>;
+public record UpdateTableCommand(int TableId, string Title) : IRequest<int>;
 
 public class UpdateTableCommandHandler : IRequestHandler<UpdateTableCommand, int>
 {
@@ -23,7 +23,6 @@ public class UpdateTableCommandHandler : IRequestHandler<UpdateTableCommand, int
                         .FirstOrDefaultAsync(x => x.Id == request.TableId, cancellationToken: cancellationToken) ??
                     throw new NotFoundException(nameof(Table), request.TableId);
 
-        table.BoardId = request.BoardId;
         table.Title = request.Title;
 
         _context.Tables.Update(table);

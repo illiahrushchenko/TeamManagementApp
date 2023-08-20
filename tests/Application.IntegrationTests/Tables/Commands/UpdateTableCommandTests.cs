@@ -15,18 +15,15 @@ public class UpdateTableCommandTests : BaseTestFixture
     {
         await Testing.RunAsDefaultUserAsync();
 
-        var firstBoardId = await Testing.SendAsync(new CreateBoardCommand("Board"));
-        var secondBoardId =await Testing.SendAsync(new CreateBoardCommand("Empty Board"));
+        var boardId = await Testing.SendAsync(new CreateBoardCommand("Board"));
+        var tableId = await Testing.SendAsync(new CreateTableCommand("Table", boardId));
         
-        var tableId = await Testing.SendAsync(new CreateTableCommand("Old Title", firstBoardId));
-        
-        await Testing.SendAsync(new UpdateTableCommand(tableId, "New Title", secondBoardId));
+        await Testing.SendAsync(new UpdateTableCommand(tableId, "New Title"));
 
         var table = await Testing.FindAsync<Table>(tableId);
 
         table.Should().NotBeNull();
-        table!.BoardId.Should().Be(secondBoardId);
-        table.Title.Should().Be("New Title");
+        table!.Title.Should().Be("New Title");
     }
     
     [Test]
@@ -34,7 +31,7 @@ public class UpdateTableCommandTests : BaseTestFixture
     {
         await Testing.RunAsDefaultUserAsync();
         
-        var command = new UpdateTableCommand(99, "New Title", 99);
+        var command = new UpdateTableCommand(99, "New Title");
         await FluentActions.Invoking(() => 
             Testing.SendAsync(command)).Should().ThrowAsync<NotFoundException>();
     }
