@@ -2,7 +2,7 @@ using MediatR;
 
 namespace Application.TableCards.Commands.UpdateTableCard;
 
-public record UpdateTableCardCommand() : IRequest<int>;
+public record UpdateTableCardCommand(int TableCardId, string Title, string Description, int TableId) : IRequest<int>;
 
 public class UpdateTableCardCommandHandler : IRequestHandler<UpdateTableCardCommand, int>
 {
