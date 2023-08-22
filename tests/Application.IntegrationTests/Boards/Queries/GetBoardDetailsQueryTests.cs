@@ -23,10 +23,9 @@ public class GetBoardDetailsQueryTests : BaseTestFixture
 
 
         boardDetails.Should().NotBeNull();
-        boardDetails.Should().Be("New Board");
+        boardDetails.Title.Should().Be("New Board");
         boardDetails.Tables.Should().NotBeNullOrEmpty();
         boardDetails.Tables.Should().HaveCount(2);
-        boardDetails.Tables.Should()
-            .Satisfy(x => x.TableCards.Count() == 1);
+        boardDetails.Tables.First().TableCards.Should().HaveCount(1);
     }
 }
