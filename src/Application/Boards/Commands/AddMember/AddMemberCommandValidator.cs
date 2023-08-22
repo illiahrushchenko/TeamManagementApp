@@ -9,8 +9,5 @@ public class AddMemberCommandValidator : AbstractValidator<AddMemberCommand>
         RuleFor(x => x.Email)
             .NotEmpty()
             .EmailAddress();
-
-        RuleFor(x => x.BoardId)
-            .GreaterThan(0);
     }
 }
