@@ -1,0 +1,28 @@
+﻿networks:
+  application-nw:
+    driver: bridge
+
+services:
+  webapi:
+    container_name: webapi
+    build:
+      context: .
+      dockerfile: src/WebApi/Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - application-nw
+    depends_on: 
+      - postgres_db
+  
+  postgres_db:
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: team_management_app
+    ports:
+      - "5432:5432"
+    networks:
+      - application-nw
