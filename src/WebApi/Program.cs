@@ -1,7 +1,7 @@
 using Application;
 using Infrastructure;
-using Microsoft.Extensions.Hosting.Internal;
 using WebApi;
+using WebApi.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +11,8 @@ builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseAuthorization();
 
