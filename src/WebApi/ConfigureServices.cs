@@ -1,8 +1,10 @@
 using System.Text;
 using Application.Common.Interfaces;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using WebApi.Common;
 using WebApi.Services;
 
 namespace WebApi;
@@ -12,7 +14,11 @@ public static class ConfigureServices
     public static IServiceCollection AddApiServices(this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddControllers();
+        services.AddControllers(options =>
+        {
+            options.Filters.Add<ApiExceptionFilter>();
+        })
+            .AddFluentValidation(x => x.AutomaticValidationEnabled = false);
 
         services.AddHttpContextAccessor();
 
