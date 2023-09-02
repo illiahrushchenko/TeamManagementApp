@@ -24,9 +24,10 @@ TeamManagementApp follows the principles of Clean Architecture and is divided in
 * ASP.NET Core
 * Entity Framework
 * Postgresql
-* NUnit
-* FluentAssertions
+* NUnit, FluentAssertions, Moq
 * FluentValidation
 * Swagger(API Documentation)
 * Bearer JWT Authentication
 * Docker
+## License
+This project is licensed with the [MIT license](https://github.com/illiahrushchenko/TeamManagementApp/blob/main/LICENSE).
