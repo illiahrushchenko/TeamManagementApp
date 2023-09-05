@@ -7,7 +7,7 @@
 .idea/
 
 # Env file
-*.env
+*.env*
 
 # User-specific files
 *.rsuser
