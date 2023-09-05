@@ -6,6 +6,9 @@
 # Idea folder
 .idea/
 
+# Env file
+.env
+
 # User-specific files
 *.rsuser
 *.suo
