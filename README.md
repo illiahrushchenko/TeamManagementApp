@@ -6,7 +6,12 @@ To get started with TeamManagementApp, simply follow these steps:
 
 1. Clone this repository.
 2. Install Docker on your system if not already installed.
-3. Run the application using Docker:
+3. Create and configure .env.production file in src/WebApi
+   ```
+   JWT_SECRET={YOUR_JWT_SECRET_KEY}
+   CONNECTION={YOUR_POSTGRES_CONNECTION_STRING}
+   ```
+4. Run the application using Docker:
 
    ```bash
    docker-compose up
