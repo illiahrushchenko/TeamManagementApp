@@ -1,9 +1,6 @@
 using Application;
-using DotNetEnv;
 using Infrastructure;
 using WebApi;
-
-Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
