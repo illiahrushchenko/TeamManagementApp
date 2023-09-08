@@ -27,7 +27,7 @@ public static class ConfigureServices
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,options =>
             {
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT_SECRET"]!));
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"]!));
 
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {

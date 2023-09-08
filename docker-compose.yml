@@ -4,7 +4,7 @@
 
 services:
   webapi:
-    env_file: src/WebApi/.env.production
+    env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     container_name: webapi
