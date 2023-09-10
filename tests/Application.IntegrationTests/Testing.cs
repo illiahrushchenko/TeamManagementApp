@@ -15,10 +15,18 @@ public class Testing
     public static int? UserId { get; set; }
     
     [OneTimeSetUp]
-    public void RunBeforeAnyTests()
+    public async Task RunBeforeAnyTests()
     {
         _factory = new CustomWebApplicationFactory();
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
+
+        await _factory.StartDbContainerAsync();
+    }
+    
+    [OneTimeTearDown]
+    public async Task TearDownAsync()
+    {
+        await _factory.DisposeDbContainerAsync();
     }
     
     public static int? GetUserId()
