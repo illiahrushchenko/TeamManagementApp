@@ -1,0 +1,25 @@
+on:
+  pull_request:
+    branches:
+      - dev
+      - main
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+
+      - name: Restore
+        run: dotnet restore ./TeamManagmentApp.sln
+
+      - name: Build
+        run: dotnet build ./TeamManagmentApp.sln --no-restore
+
+      - name: Test
+        run: dotnet test ./TeamManagmentApp.sln --no-build
