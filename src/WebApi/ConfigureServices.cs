@@ -14,11 +14,12 @@ public static class ConfigureServices
     public static IServiceCollection AddApiServices(this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddControllers(options =>
-        {
-            options.Filters.Add<ApiExceptionFilter>();
-        })
-            .AddFluentValidation(x => x.AutomaticValidationEnabled = false);
+        services
+            .AddControllers(options =>
+            {
+                options.Filters.Add<ApiExceptionFilter>();
+            })
+            .AddFluentValidation(options => options.AutomaticValidationEnabled = false);
 
         services.AddHttpContextAccessor();
 
