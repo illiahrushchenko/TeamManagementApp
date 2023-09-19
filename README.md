@@ -6,7 +6,12 @@ To get started with TeamManagementApp, simply follow these steps:
 
 1. Clone this repository.
 2. Install Docker on your system if not already installed.
-3. Run the application using Docker:
+3. Create and configure .env file
+   ```
+   Jwt__SecretKey=<YourSecretKey>
+   ConnectionStrings__DefaultConnection=<YourPostgresqlConnectionString>
+   ```
+4. Run the application using Docker:
 
    ```bash
    docker-compose up

@@ -4,6 +4,9 @@
 
 services:
   webapi:
+    env_file: .env
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     container_name: webapi
     build:
       context: .

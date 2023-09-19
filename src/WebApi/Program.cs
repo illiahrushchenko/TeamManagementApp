@@ -1,7 +1,6 @@
 using Application;
 using Infrastructure;
 using WebApi;
-using WebApi.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
