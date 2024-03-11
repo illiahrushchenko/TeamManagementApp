@@ -5,11 +5,13 @@ namespace Domain.Entities;
 
 public class Board : EntityBase
 {
+    public Board(string title)
+    {
+        Title = title;
+    }
+    
     public IList<Table> Tables { get; set; } = new List<Table>();
-    public IList<User> Members { get; set; } = new List<User>();
-    
+    public IList<Member> Members { get; set; } = new List<Member>();
+    public IList<Invitation> Invitations { get; set; } = new List<Invitation>();
     public string? Title { get; set; }
-    
-    public User Owner { get; set; } = null!;
-    public int OwnerId { get; set; }
 }

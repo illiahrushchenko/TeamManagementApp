@@ -5,9 +5,7 @@ namespace Domain.Entities;
 
 public class User : IdentityUser<int>
 {
-    public IList<Board> OwnBoards { get; set; } = new List<Board>();
-    public IList<Board> OtherBoards { get; set; } = new List<Board>();
-
+    public IList<Invitation> Invitations { get; set; } = new List<Invitation>();
+    public IList<Member> Memberships { get; set; } = new List<Member>();
     public IList<TableCard> AddedCards { get; set; } = new Collection<TableCard>();
-
 }

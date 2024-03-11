@@ -11,21 +11,29 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<int>, i
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
+        Database.EnsureDeleted();
         Database.EnsureCreated();
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<Board>(entity =>
+        builder.Entity<Member>(entity =>
         {
-            entity.HasMany(p => p.Members)
-                .WithMany(p => p.OtherBoards);
-
-            entity.HasOne(p => p.Owner)
-                .WithMany(p => p.OwnBoards)
-                .HasForeignKey(p => p.OwnerId)
+            entity.HasOne(p => p.User)
+                .WithMany(p => p.Memberships)
                 .OnDelete(DeleteBehavior.Cascade);
         });
+        
+        // builder.Entity<Board>(entity =>
+        // {
+        //     // entity.HasMany(p => p.Members)
+        //     //     .WithMany(p => p.OtherBoards);
+        //
+        //     entity.HasOne(p => p.Owner)
+        //         .WithMany(p => p.OwnBoards)
+        //         .HasForeignKey(p => p.OwnerId)
+        //         .OnDelete(DeleteBehavior.Cascade);
+        // });
 
         builder.Entity<TableCard>(entity =>
         {
@@ -37,6 +45,8 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<int>, i
         base.OnModelCreating(builder);
     }
 
+    public DbSet<Invitation> Invitations => Set<Invitation>();
+    public DbSet<Member> Members => Set<Member>();
     public DbSet<Board> Boards => Set<Board>();
     public DbSet<Table> Tables => Set<Table>();
     public DbSet<TableCard> TableCards => Set<TableCard>();
