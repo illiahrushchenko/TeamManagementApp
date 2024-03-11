@@ -1,4 +1,3 @@
-using Application.Boards.Commands.AddMember;
 using Application.Boards.Commands.CreateBoard;
 using Application.Boards.Commands.DeleteBoard;
 using Application.Boards.Commands.UpdateBoard;
@@ -35,12 +34,12 @@ public class BoardController : ControllerBase
         return Ok();
     }
     
-    [HttpPost()]
-    public async Task<IActionResult> AddMember(AddMemberCommand command)
-    {
-        return Ok(await _sender.Send(command));
-    }
-    
+    // [HttpPost()]
+    // public async Task<IActionResult> AddMember(AddMemberCommand command)
+    // {
+    //     return Ok(await _sender.Send(command));
+    // }
+    //
     [HttpGet()]
     public async Task<IActionResult> GetAvailable()
     {
