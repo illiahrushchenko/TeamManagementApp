@@ -21,11 +21,13 @@ public class CreateBoardCommandHandler : IRequestHandler<CreateBoardCommand, int
     
     public async Task<int> Handle(CreateBoardCommand request, CancellationToken cancellationToken)
     {
-        var board = new Board
+        var board = new Board(request.Title);
+        board.Members.Add(new Member
         {
-            Title = request.Title,
-            OwnerId = _currentUserService.UserId
-        };
+            UserId = _currentUserService.UserId,
+            IsAllowedToChangeBoard = true,
+            IsAllowedToSendInvitations = true
+        });
 
         await _context.Boards.AddAsync(board, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
